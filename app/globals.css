@@ -5,3 +5,30 @@
 .borderr {
   border: 1px solid red;
 }
+
+.headerLink {
+  position: relative;
+}
+
+.headerLink::after {
+  content: "";
+  height: 1px;
+  background: black;
+  left: 0;
+  bottom: 0;
+  width: 100%; /* Start with full width */
+  position: absolute;
+  transform: scaleX(0); /* Initially scale the width to 0 */
+  transform-origin: left; /* The animation starts from the left */
+  transition: transform 0.3s ease-in-out;
+}
+
+.headerLink:hover::after {
+  transform: scaleX(1); /* Scale to full width on hover */
+  transform-origin: left; /* Ensure the line grows from left to right */
+}
+
+.headerLink::after {
+  transform: scaleX(0); /* Scale back to 0, but the transform-origin changes to right */
+  transform-origin: right;
+}
