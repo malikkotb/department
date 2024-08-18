@@ -7,8 +7,11 @@ gsap.registerPlugin(useGSAP);
 export default function Header() {
   useGSAP(() => {});
 
+  // TODO: add scrollTrigger to header that makes it 
+  // scroll away when scrolling down and scroll back when scrolling up
+
   return (
-    <div className="w-full h-24 borderr flex px-16 py-8 items-center">
+    <div className="w-full h-24 bg-transparent absolute borderr flex px-16 py-8 items-center">
       <div className="uppercase">Basic/Dept</div>
       <div className="flex items-center justify-between gap-12 m-auto">
         <Link href={"/"} className="headerLink">
@@ -27,7 +30,7 @@ export default function Header() {
           Carreer
         </Link>
       </div>
-      <div>Menu</div>
+      <div className="uppercase">Menu</div>
     </div>
   );
 }

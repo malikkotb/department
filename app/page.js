@@ -1,12 +1,11 @@
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import VideoHome from "@/components/VideoHome";
 
 export default function Home() {
   return (
-   <main>
-      <Header />
-      {/* <Content /> */}
-      <Footer />
-   </main>
+    <main>
+      <VideoHome />
+      <section className="h-screen borderr bg-green-500"></section>
+    </main>
   );
 }
