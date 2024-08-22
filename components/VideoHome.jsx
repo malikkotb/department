@@ -11,23 +11,27 @@ export default function VideoHome() {
   useGSAP(() => {
     const onMouseMove = (event) => {
       const { clientX, clientY } = event;
-      gsap.set(cursorRef.current, { x: clientX, y: clientY, ease: "power2.inOut" });
+      console.log(clientX, clientY);
+      gsap.set(cursorRef.current, { x: clientX - clientX / 2, y: clientY - clientY / 2 });
     };
 
     sectionRef.current.addEventListener("mousemove", onMouseMove);
 
+    // TODO: cursor also has to move with scroll otherwise its weird
     // TODO: move cursor back to middle of screen once mouse is off this section / or on header
   });
   return (
-    <section
-      ref={sectionRef}
-      className="h-screen w-screen relative flex justify-center items-center"
-    >
+    <section ref={sectionRef} className="h-screen w-screen relative flex">
       {/* Custom Cursor */}
       <div
         ref={cursorRef}
         id="custom-cursor"
-        className="absolute -top-12 -left-12 h-24 w-24 rounded-full pointer-events-none z-10 p-2 flex items-center justify-center bg-white"
+        style={{
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+        className="absolute h-24 w-24 rounded-full pointer-events-none z-10 p-2 flex items-center justify-center bg-white"
       >
         <div className="cursor-text text-sm leading-tight text-center font-semibold text-black uppercase tracking-wide">
           Watch Reel
