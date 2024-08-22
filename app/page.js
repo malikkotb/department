@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main>
       <VideoHome />
-      <section className="h-screen borderr bg-green-500"></section>
+      <section className="h-screen bg-[#f2f2f2]"></section>
     </main>
   );
 }

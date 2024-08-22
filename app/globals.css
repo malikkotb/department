@@ -7,25 +7,16 @@
   border: 1px solid red;
 }
 
-.video {   
-  object-fit: cover;   
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  /* z-index: -1;  */
-}
-
 .headerLink {
   position: relative;
   text-decoration: none;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 13px;
 }
-
 .headerLink::after {
   content: "";
   height: 1px;
-  background: black;
+  background: white;
   left: 0;
   bottom: 2px; /* Adjust this value to move the line closer to the text */
   width: 100%; /* Start with full width */
@@ -34,12 +25,10 @@
   transform-origin: left; /* The animation starts from the left */
   transition: transform 0.2s ease-in-out;
 }
-
 .headerLink:hover::after {
   transform: scaleX(1); /* Scale to full width on hover */
   transform-origin: left; /* Ensure the line grows from left to right */
 }
-
 .headerLink::after {
   transform: scaleX(0); /* Scale back to 0, but the transform-origin changes to right */
   transform-origin: right;
