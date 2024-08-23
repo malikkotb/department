@@ -1,84 +1,101 @@
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { useRef } from "react";
-gsap.registerPlugin(useGSAP);
-export default function page() {
-  var parent1 = document.querySelector(".parent1");
-  var parent2 = document.querySelector(".parent2");
-  var displays;
+"use client"
+// import { useGSAP } from "@gsap/react";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
 
-  function onMouseMove(e) {
-    // this refers to the caller
-    console.log(this);
+export default function MouseTracker() {
+  const parent1Ref = useRef(null);
+  const parent2Ref = useRef(null);
+  const [displays, setDisplays] = useState({
+    pageX: 0,
+    pageY: 0,
+    clientX: 0,
+    clientY: 0,
+    offsetX: 0,
+    offsetY: 0,
+  });
 
-    // Find its child
-    var follower = this.querySelector(".follower");
+  const onMouseMove = (e) => {
+    const follower = e.currentTarget.querySelector(".follower");
 
-    gsap.to(follower, 0.3, {
+    gsap.to(follower, {
+      duration: 0.3,
       x: e.offsetX,
       y: e.offsetY,
-      ease: Power4.easeOut,
+      ease: "power4.out",
     });
 
-    displays.pX.textContent = e.pageX;
-    displays.pY.textContent = e.pageY;
+    setDisplays({
+      pageX: e.pageX,
+      pageY: e.pageY,
+      clientX: e.clientX,
+      clientY: e.clientY,
+      offsetX: e.offsetX,
+      offsetY: e.offsetY,
+    });
+  };
 
-    displays.cX.textContent = e.clientX;
-    displays.cY.textContent = e.clientY;
-
-    displays.oX.textContent = e.offsetX;
-    displays.oY.textContent = e.offsetY;
-  }
-
-  function onMouseLeave(e) {
-    const rect = this.getBoundingClientRect();
+  const onMouseLeave = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
     const center = {
       w: Math.round(rect.width * 0.5),
       h: Math.round(rect.height * 0.5),
     };
-    const trg = this.querySelector(".follower");
+    const follower = e.currentTarget.querySelector(".follower");
 
-    gsap.to(trg, 1, {
+    gsap.to(follower, {
+      duration: 1,
       x: center.w,
       y: center.h,
-      ease: Back.easeInOut,
+      ease: "back.inOut",
     });
-  }
+  };
 
-  function init() {
-    // Listen for mouse movement when over either one of the parents
+  useEffect(() => {
+    const parent1 = parent1Ref.current;
+    const parent2 = parent2Ref.current;
+
     parent1.addEventListener("mousemove", onMouseMove);
     parent2.addEventListener("mousemove", onMouseMove);
 
     parent1.addEventListener("mouseleave", onMouseLeave);
     parent2.addEventListener("mouseleave", onMouseLeave);
-  }
 
-  // wait until DOM is ready
-  document.addEventListener("DOMContentLoaded", function (event) {
-    // wait until window, stylesheets, images, links, and other media assets are loaded
-    window.onload = function () {
-      displays = {
-        pX: document.querySelector(".pageX"),
-        pY: document.querySelector(".pageY"),
+    return () => {
+      parent1.removeEventListener("mousemove", onMouseMove);
+      parent2.removeEventListener("mousemove", onMouseMove);
 
-        cX: document.querySelector(".clientX"),
-        cY: document.querySelector(".clientY"),
-
-        oX: document.querySelector(".offsetX"),
-        oY: document.querySelector(".offsetY"),
-      };
-
-      // Center the pivot point of the follower
-      TweenMax.set(".follower", {
-        xPercent: -50,
-        yPercent: -50,
-      });
-
-      // All ready, start!
-      init();
+      parent1.removeEventListener("mouseleave", onMouseLeave);
+      parent2.removeEventListener("mouseleave", onMouseLeave);
     };
-  });
+  }, []);
 
-  return <div>page</div>;
+  return (
+    <div>
+      <div ref={parent1Ref} className="container" style={{ position: "relative" }}>
+        <div className="follower" style={followerStyles}></div>
+      </div>
+      <div ref={parent2Ref} className="container" style={{ position: "relative" }}>
+        <div className="follower" style={followerStyles}></div>
+      </div>
+
+      <div>
+        <p>Page X: {displays.pageX}</p>
+        <p>Page Y: {displays.pageY}</p>
+        <p>Client X: {displays.clientX}</p>
+        <p>Client Y: {displays.clientY}</p>
+        <p>Offset X: {displays.offsetX}</p>
+        <p>Offset Y: {displays.offsetY}</p>
+      </div>
+    </div>
+  );
 }
+
+const followerStyles = {
+  width: "20px",
+  height: "20px",
+  backgroundColor: "red",
+  borderRadius: "50%",
+  position: "absolute",
+  transform: "translate(-50%, -50%)",
+};

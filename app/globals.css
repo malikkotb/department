@@ -33,3 +33,42 @@
   transform: scaleX(0); /* Scale back to 0, but the transform-origin changes to right */
   transform-origin: right;
 }
+
+
+
+/* custom cursor */
+.container {
+  height: 40vh;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid red;
+}
+
+.container.display {
+  position: fixed;
+  width: 20ch;
+  min-width: auto;
+  min-height: auto;
+  height: auto;
+  left: 0;
+  top: 0;
+  margin: 0;
+  z-index: 1;
+}
+
+.follower {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 100%;
+  display: flex;
+  overflow: hidden;
+  background: hsl(0, 0%, 98%);
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none; /* Very important to prevent the follower from messing up with the mouse move */
+}
+
+.follower > * {
+  margin: auto;
+}
