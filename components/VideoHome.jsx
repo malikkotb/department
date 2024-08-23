@@ -27,7 +27,9 @@ export default function VideoHome() {
     };
 
     const onMouseLeave = (event) => {
-      gsap.set(cursorRef.current, { x: size.width / 2, y: size.height / 2 });
+      const { clientX, clientY } = event;
+
+      gsap.set(cursorRef.current, { x: clientX, y: clientY });
     };
 
     sectionRef.current.addEventListener("mousemove", onMouseMove);
@@ -48,8 +50,6 @@ export default function VideoHome() {
         ref={cursorRef}
         id="custom-cursor"
         style={{
-          top: `${position.top}px`,
-          left: `${position.left}px`,
           opacity: 0, // Initially hidden
         }}
         className={`${
