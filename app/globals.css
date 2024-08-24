@@ -56,7 +56,7 @@
   z-index: 1;
 }
 
-.follower {
+/* .follower {
   width: 5rem;
   height: 5rem;
   border-radius: 100%;
@@ -65,9 +65,20 @@
   background: hsl(0, 0%, 98%);
   position: absolute;
   left: 0;
+  pointer-events: none; /* Very important to prevent the follower from messing up with the mouse move
   top: 0;
-  pointer-events: none; /* Very important to prevent the follower from messing up with the mouse move */
+} */
+
+.follower {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
+
 
 .follower > * {
   margin: auto;

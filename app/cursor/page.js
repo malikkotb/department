@@ -1,4 +1,4 @@
-"use client"
+"use client";
 // import { useGSAP } from "@gsap/react";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
@@ -73,10 +73,10 @@ export default function MouseTracker() {
   return (
     <div>
       <div ref={parent1Ref} className="container" style={{ position: "relative" }}>
-        <div className="follower" style={followerStyles}></div>
+        <div className="follower"></div>
       </div>
       <div ref={parent2Ref} className="container" style={{ position: "relative" }}>
-        <div className="follower" style={followerStyles}></div>
+        <div className="follower"></div>
       </div>
 
       <div>
@@ -90,12 +90,3 @@ export default function MouseTracker() {
     </div>
   );
 }
-
-const followerStyles = {
-  width: "20px",
-  height: "20px",
-  backgroundColor: "red",
-  borderRadius: "50%",
-  position: "absolute",
-  transform: "translate(-50%, -50%)",
-};
